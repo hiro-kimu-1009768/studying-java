@@ -11,7 +11,7 @@ import com.exercise.util.Connections;
 public class RepositoryDBImpl implements RepositoryDB {
 	private final String WORD_SELECT_SQL = "SELECT word, count FROM wcount WHERE word = ?";
 	private final String WORD_UPDATE_SQL = "UPDATE wcount SET count = ? WHERE word = ?";
-	private final String WORD_INSERT_SQL = "INSERT INTO wcount (word, count) VALUES ('?', ?)";
+	private final String WORD_INSERT_SQL = "INSERT INTO WCOUNT (word, count) VALUES (?,?)";
 
 	@Override
 	public EnglishWord getWcountDB(String word, int count) {
@@ -20,7 +20,7 @@ public class RepositoryDBImpl implements RepositoryDB {
 			statement.setString(1, word);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				if (resultSet.next()) {
-					int db_count = resultSet.getInt("count") + count;
+					int db_count = resultSet.getInt("count");
 					return new EnglishWord(word, db_count);
 				} else {
 					return null;
@@ -36,7 +36,7 @@ public class RepositoryDBImpl implements RepositoryDB {
 	public void UpdateWcountDB(String word, int count) {
 		try (Connection connection = Connections.getConnection();
 				PreparedStatement statement = connection.prepareStatement(WORD_UPDATE_SQL)) {
-			statement.setString(1, word);
+			statement.setString(2, word);
 			statement.setInt(1, count);
 			int rowCount = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -49,7 +49,7 @@ public class RepositoryDBImpl implements RepositoryDB {
 		try (Connection connection = Connections.getConnection();
 				PreparedStatement statement = connection.prepareStatement(WORD_INSERT_SQL)) {
 			statement.setString(1, word);
-			statement.setInt(1, count);
+			statement.setInt(2, count);
 			int rowCount = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

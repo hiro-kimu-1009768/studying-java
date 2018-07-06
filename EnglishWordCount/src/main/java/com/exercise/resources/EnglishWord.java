@@ -1,7 +1,5 @@
 package com.exercise.resources;
 
-import java.util.Map;
-
 public class EnglishWord {
 	private String word;
 	private int count;
@@ -51,7 +49,13 @@ public class EnglishWord {
 	public EnglishWord(String word, int count) {
 		this.word = word;
 		this.count = count;
-		Map<String, Integer> englishWord = (Map<String, Integer>) new EnglishWord(word, count);
+//		Map<String, Integer> englishWord = (Map<String, Integer>) new EnglishWord(word, count);
 	}
 
+	public EnglishWord() {
+		this(null,0);
+
+//		Map<String, Integer> englishWord = (Map<String, Integer>) new EnglishWord(word, count);
+
+	}
 }

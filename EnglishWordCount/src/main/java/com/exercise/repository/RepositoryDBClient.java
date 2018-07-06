@@ -7,7 +7,7 @@ import com.exercise.resources.EnglishWord;
 public class RepositoryDBClient {
 	private EnglishWord englishWord;
 
-	protected RepositoryDBClient() {
+	public RepositoryDBClient() {
 		this.englishWord = englishWord;
 	}
 
@@ -20,22 +20,29 @@ public class RepositoryDBClient {
 		Map<String, Integer> treeMap = new WordCount().getEnglishWord();
 		RepositoryDB repositoryDB = new RepositoryDBImpl();
 
+		int dbCount = 0;
+		int updateCount = 0;
+		int updateTotalCount = 0;
+		int insertTotalCount = 0;
+
 		for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
 			String word = entry.getKey();
 			int count = entry.getValue();
 
-			EnglishWord englishword = repositoryDB.getWcountDB(word, count);
+			EnglishWord englishWord = repositoryDB.getWcountDB(word, count);
 
-			if (englishword == null) {
+			if (englishWord == null) {
+				insertTotalCount++;
 				repositoryDB.InsertWcountDB(word, count);
-				System.out.println(englishWord);
 			} else {
-				int updateCount = count + englishWord.getCount();
+				updateTotalCount++;
+				dbCount = englishWord.getCount();
+				updateCount = count + dbCount;
 				repositoryDB.UpdateWcountDB(word, updateCount);
-				System.out.println(englishWord);
 			}
-
 		}
+		System.out.println("update_count" + updateTotalCount);
+		System.out.println("insert_count" + insertTotalCount);
 	}
 
 }
