@@ -3,7 +3,7 @@ package com.exercise.repository;
 import java.io.IOException;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RepositoryJson {
 	public String getAllToJson() {
@@ -18,5 +18,4 @@ public class RepositoryJson {
 		}
 		return json;
 	}
-
 }
