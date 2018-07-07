@@ -9,18 +9,20 @@ public class RepositoryConsole {
 
 	public void getEnglishWordCosole() {
 
-		Map<String, Integer> treeMap = new WordCount().getEnglishWord();
+		WordCount wordCount = new WordCountImpl();
+
+		Map<String, Integer> wordMap = wordCount.getEnglishWord();
 		List<String> list = new ArrayList<>();
 
-		for (String key : treeMap.keySet()) {
+		for (String key : wordMap.keySet()) {
 			list.add(key);
 		}
 		Collections.sort(list, (o1, o2) -> {
-			return -treeMap.get(o1) + treeMap.get(o2);
+			return -wordMap.get(o1) + wordMap.get(o2);
 		});
 
 		for (String word : list) {
-			int count = treeMap.get(word);
+			int count = wordMap.get(word);
 			System.out.println(count + ":" + word);
 		}
 	}

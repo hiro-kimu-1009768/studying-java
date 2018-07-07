@@ -17,7 +17,7 @@ public class RepositoryDBClient {
 
 	public void AccessRepositoryDB() {
 
-		Map<String, Integer> treeMap = new WordCount().getEnglishWord();
+		WordCount wordCount = new WordCountImpl();
 		RepositoryDB repositoryDB = new RepositoryDBImpl();
 
 		int dbCount = 0;
@@ -25,7 +25,7 @@ public class RepositoryDBClient {
 		int updateTotalCount = 0;
 		int insertTotalCount = 0;
 
-		for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
+		for (Map.Entry<String, Integer> entry : wordCount.getEnglishWord().entrySet()) {
 			String word = entry.getKey();
 			int count = entry.getValue();
 
@@ -41,8 +41,8 @@ public class RepositoryDBClient {
 				repositoryDB.UpdateWcountDB(word, updateCount);
 			}
 		}
-		System.out.println("update_count" + updateTotalCount);
-		System.out.println("insert_count" + insertTotalCount);
+		System.out.println("update_count:" + updateTotalCount + "件");
+		System.out.println("insert_count:" + insertTotalCount + "件");
 	}
 
 }
