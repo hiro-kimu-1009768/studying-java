@@ -20,17 +20,18 @@ public class RepositoryJson {
 			wordCount.getEnglishWord();
 			ObjectMapper objectMapper = new ObjectMapper()
 					.enable(SerializationFeature.INDENT_OUTPUT);
-			ArrayNode rootNode = objectMapper.createArrayNode();
+			ArrayNode jsonWordList = objectMapper.createArrayNode();
 			for (Map.Entry<String, Integer> entory : wordCount.getEnglishWord().entrySet()) {
 				EnglishWord englishWord = new EnglishWord(entory.getKey(), entory.getValue());
-				rootNode.addPOJO(englishWord);
+				jsonWordList.addPOJO(englishWord);
 				json = objectMapper.writeValueAsString(englishWord);
-				objectMapper.writeValue(file, rootNode);
 				System.out.println(json);
 			}
+			objectMapper.writeValue(file, jsonWordList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return json;
 	}
 }
