@@ -49,13 +49,5 @@ public class EnglishWord {
 	public EnglishWord(String word, int count) {
 		this.word = word;
 		this.count = count;
-//		Map<String, Integer> englishWord = (Map<String, Integer>) new EnglishWord(word, count);
-	}
-
-	public EnglishWord() {
-		this(null,0);
-
-//		Map<String, Integer> englishWord = (Map<String, Integer>) new EnglishWord(word, count);
-
 	}
 }

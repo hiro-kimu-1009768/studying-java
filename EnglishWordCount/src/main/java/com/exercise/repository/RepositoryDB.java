@@ -4,10 +4,10 @@ import com.exercise.resources.EnglishWord;
 
 public interface RepositoryDB {
 
-	EnglishWord getWcountDB(String word, int count);
+	EnglishWord getWcountDB(String word, int count, String dbConnect);
 
-	void UpdateWcountDB(String word, int count);
+	void updateWcountDB(String word, int count, String dbConnect);
 
-	void InsertWcountDB(String word, int count);
+	void insertWcountDB(String word, int count, String dbConnect);
 
 }

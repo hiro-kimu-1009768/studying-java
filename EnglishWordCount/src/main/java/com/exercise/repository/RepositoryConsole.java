@@ -7,10 +7,9 @@ import java.util.Map;
 
 public class RepositoryConsole {
 
-	public void getEnglishWordCosole() {
+	public void getEnglishWordConsole() {
 
 		WordCount wordCount = new WordCountImpl();
-
 		Map<String, Integer> wordMap = wordCount.getEnglishWord();
 		List<String> list = new ArrayList<>();
 

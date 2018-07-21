@@ -7,15 +7,16 @@ import java.sql.SQLException;
 
 import com.exercise.resources.EnglishWord;
 import com.exercise.util.Connections;
+import com.exercise.util.Input;
 
 public class RepositoryDBImpl implements RepositoryDB {
-	private final String WORD_SELECT_SQL = "SELECT word, count FROM wcount WHERE word = ?";
-	private final String WORD_UPDATE_SQL = "UPDATE wcount SET count = ? WHERE word = ?";
-	private final String WORD_INSERT_SQL = "INSERT INTO WCOUNT (word, count) VALUES (?,?)";
+	private static final String WORD_SELECT_SQL = "SELECT word, count FROM wcount WHERE word = ?";
+	private static final String WORD_UPDATE_SQL = "UPDATE wcount SET count = ? WHERE word = ?";
+	private static final String WORD_INSERT_SQL = "INSERT INTO WCOUNT (word, count) VALUES (?,?)";
 
 	@Override
-	public EnglishWord getWcountDB(String word, int count) {
-		try (Connection connection = Connections.getConnection();
+	public EnglishWord getWcountDB(String word, int count, String dbConnect) {
+		try (Connection connection = Connections.getConnection(new Input().getDBConnectName(dbConnect));
 				PreparedStatement statement = connection.prepareStatement(WORD_SELECT_SQL)) {
 			statement.setString(1, word);
 			try (ResultSet resultSet = statement.executeQuery()) {
@@ -33,24 +34,24 @@ public class RepositoryDBImpl implements RepositoryDB {
 	}
 
 	@Override
-	public void UpdateWcountDB(String word, int count) {
-		try (Connection connection = Connections.getConnection();
+	public void updateWcountDB(String word, int count, String dbConnect) {
+		try (Connection connection = Connections.getConnection(new Input().getDBConnectName(dbConnect));
 				PreparedStatement statement = connection.prepareStatement(WORD_UPDATE_SQL)) {
 			statement.setString(2, word);
 			statement.setInt(1, count);
-			int rowCount = statement.executeUpdate();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void InsertWcountDB(String word, int count) {
-		try (Connection connection = Connections.getConnection();
+	public void insertWcountDB(String word, int count, String dbConnect) {
+		try (Connection connection = Connections.getConnection(new Input().getDBConnectName(dbConnect));
 				PreparedStatement statement = connection.prepareStatement(WORD_INSERT_SQL)) {
 			statement.setString(1, word);
 			statement.setInt(2, count);
-			int rowCount = statement.executeUpdate();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

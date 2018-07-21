@@ -11,11 +11,11 @@ public class RepositoryDBClient {
 		this.englishWord = englishWord;
 	}
 
-	protected RepositoryDBClient(EnglishWord englishWord) {
+	public RepositoryDBClient(EnglishWord englishWord) {
 		this.englishWord = englishWord;
 	}
 
-	public void AccessRepositoryDB() {
+	public void accessRepositoryDB(String dbConnect) {
 
 		WordCount wordCount = new WordCountImpl();
 		RepositoryDB repositoryDB = new RepositoryDBImpl();
@@ -25,24 +25,25 @@ public class RepositoryDBClient {
 		int updateTotalCount = 0;
 		int insertTotalCount = 0;
 
+
 		for (Map.Entry<String, Integer> entry : wordCount.getEnglishWord().entrySet()) {
 			String word = entry.getKey();
 			int count = entry.getValue();
 
-			EnglishWord englishWord = repositoryDB.getWcountDB(word, count);
+			EnglishWord englishWord = repositoryDB.getWcountDB(word, count, dbConnect);
 
 			if (englishWord == null) {
 				insertTotalCount++;
-				repositoryDB.InsertWcountDB(word, count);
+				repositoryDB.insertWcountDB(word, count, dbConnect);
 			} else {
 				updateTotalCount++;
 				dbCount = englishWord.getCount();
 				updateCount = count + dbCount;
-				repositoryDB.UpdateWcountDB(word, updateCount);
+				repositoryDB.updateWcountDB(word, updateCount, dbConnect);
 			}
 		}
-		System.out.println("update_count:" + updateTotalCount + "件");
-		System.out.println("insert_count:" + insertTotalCount + "件");
+		System.out.println("既存単語更新件数:" + updateTotalCount + "件");
+		System.out.println("新規単語登録件数:" + insertTotalCount + "件");
 	}
 
 }
