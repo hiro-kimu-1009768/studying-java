@@ -1,14 +1,19 @@
 package com.exercise;
 
-import com.exercise.repository.RepositoryConsole;
-import com.exercise.repository.RepositoryJson;
+import com.exercise.controller.IOController;
+import com.exercise.repository.WordCount;
+import com.exercise.util.ArgumentInputException;
+import com.exercise.util.Config;
 
 public class Main {
 	public static void main(String[] args) {
-		RepositoryConsole repositoryConsole = new RepositoryConsole();
-		repositoryConsole.getEnglishWordCosole();
+		Config config = Config.IOConfig(args);
+		WordCount wordCount = WordCount.getEnglishWord(config);
+		try {
+			IOController.outputControl(config, wordCount);
+		} catch (ArgumentInputException e) {
+			e.printStackTrace();
+		}
 
-		RepositoryJson repositoryJson = new RepositoryJson();
-		repositoryJson.getAllToJson();
 	}
 }

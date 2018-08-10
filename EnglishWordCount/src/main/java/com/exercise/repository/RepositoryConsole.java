@@ -5,22 +5,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class RepositoryConsole {
+import com.exercise.controller.IOController;
+import com.exercise.util.Config;
 
-	public void getEnglishWordCosole() {
+public class RepositoryConsole implements IOController {
 
-		Map<String, Integer> treeMap = new WordCount().getEnglishWord();
+	public void outputControl(Config config, WordCount wordCount) {
+
+		WordCount wordCount = new WordCount();
+		Map<String, Integer> wordMap = (Map<String, Integer>) wordCount.getEnglishWord(config);
 		List<String> list = new ArrayList<>();
 
-		for (String key : treeMap.keySet()) {
+		for (String key : wordMap.keySet()) {
 			list.add(key);
 		}
 		Collections.sort(list, (o1, o2) -> {
-			return -treeMap.get(o1) + treeMap.get(o2);
+			return -wordMap.get(o1) + wordMap.get(o2);
 		});
 
 		for (String word : list) {
-			int count = treeMap.get(word);
+			int count = wordMap.get(word);
 			System.out.println(count + ":" + word);
 		}
 	}
