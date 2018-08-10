@@ -2,44 +2,35 @@ package com.exercise.repository;
 
 import java.util.Map;
 
-import com.exercise.resources.EnglishWord;
+import com.exercise.entity.EnglishWord;
+import com.exercise.util.Config;
 
-public class RepositoryDBClient {
-	private EnglishWord englishWord;
+public class RepositoryDBClient extends WordCount {
 
-	public RepositoryDBClient() {
-		this.englishWord = englishWord;
-	}
+	public void outputControl(Config config) {
 
-	public RepositoryDBClient(EnglishWord englishWord) {
-		this.englishWord = englishWord;
-	}
-
-	public void accessRepositoryDB(String dbConnect) {
-
-		WordCount wordCount = new WordCountImpl();
-		RepositoryDB repositoryDB = new RepositoryDBImpl();
+		WordCount wordCount = new WordCount();
+		RepositoryDB repositoryDB = new RepositoryDB();
 
 		int dbCount = 0;
 		int updateCount = 0;
 		int updateTotalCount = 0;
 		int insertTotalCount = 0;
 
-
-		for (Map.Entry<String, Integer> entry : wordCount.getEnglishWord().entrySet()) {
+		for (Map.Entry<String, Integer> entry : wordCount.getEnglishWord(config).entrySet()) {
 			String word = entry.getKey();
 			int count = entry.getValue();
 
-			EnglishWord englishWord = repositoryDB.getWcountDB(word, count, dbConnect);
+			EnglishWord englishWord = repositoryDB.getWcountDB(new EnglishWord(word, count), config);
 
 			if (englishWord == null) {
 				insertTotalCount++;
-				repositoryDB.insertWcountDB(word, count, dbConnect);
+				repositoryDB.insertWcountDB(new EnglishWord(word, count), config);
 			} else {
 				updateTotalCount++;
 				dbCount = englishWord.getCount();
 				updateCount = count + dbCount;
-				repositoryDB.updateWcountDB(word, updateCount, dbConnect);
+				repositoryDB.updateWcountDB(englishWord, config);
 			}
 		}
 		System.out.println("既存単語更新件数:" + updateTotalCount + "件");
@@ -47,3 +38,4 @@ public class RepositoryDBClient {
 	}
 
 }
+

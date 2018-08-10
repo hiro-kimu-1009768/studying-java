@@ -2,13 +2,13 @@ package com.exercise.util;
 
 public class ArgumentInputException extends Exception {
 
-	private String defaultValue;
+	private Config defaultValue;
 
-	public ArgumentInputException(String inputValue) {
-		this.defaultValue = inputValue;
+	public ArgumentInputException(Config config) {
+		this.defaultValue = config;
 	}
 
-	public String getArgumentIntegerInputException() {
+	public Config getArgumentIntegerInputException() {
 		return defaultValue;
 	}
 

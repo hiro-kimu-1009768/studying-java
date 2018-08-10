@@ -5,12 +5,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class RepositoryConsole {
+import com.exercise.controller.IOController;
+import com.exercise.util.Config;
 
-	public void getEnglishWordConsole() {
+public class RepositoryConsole implements IOController {
 
-		WordCount wordCount = new WordCountImpl();
-		Map<String, Integer> wordMap = wordCount.getEnglishWord();
+	public void outputControl(Config config, WordCount wordCount) {
+
+		WordCount wordCount = new WordCount();
+		Map<String, Integer> wordMap = (Map<String, Integer>) wordCount.getEnglishWord(config);
 		List<String> list = new ArrayList<>();
 
 		for (String key : wordMap.keySet()) {

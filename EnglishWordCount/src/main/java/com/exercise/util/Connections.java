@@ -12,6 +12,6 @@ public class Connections {
 		String userName = dbConnect[1];
 		String password = dbConnect[2];
 
-		return DriverManager.getConnection(serverName,userName,password);
+		return DriverManager.getConnection(serverName, userName, password);
 	}
 }
